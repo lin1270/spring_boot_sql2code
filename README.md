@@ -1,4 +1,5 @@
 # spring_boot_sql2code
+spring boot框架，根據SQL創建語句，自動生成 model、mapper、controller、service，MVC層。  
 
 小子並未製作成命令模式，所以需要手動加上node作為驅動。
 
