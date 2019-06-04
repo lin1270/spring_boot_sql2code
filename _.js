@@ -4,15 +4,15 @@ var fs = require('fs')
 var process = require('process')
 const os = require('os');
 var exec = require('child_process').exec;
+var typeReflect = require('./_type.json')
 
 const g_toReplace = 'XXXXXXXX'
-
 
 var result = {}
 
 function checkRunParam() {
     if (process.argv.length < 5) {
-        console.error('需要输入->类名->SQL文件名->URL路径，如：node _.js className className.sql className')
+        console.error('需要輸入->類名->SQL文件名->URL路徑，如：node _.js className className.sql className')
         return null
     }
 
@@ -21,7 +21,7 @@ function checkRunParam() {
     const urlPath = process.argv[4]
 
     if (!className || !sqlPath || !urlPath) {
-        console.error('需要输入->类名->SQL文件名->URL路径，如：node _.js className className.sql className')
+        console.error('需要輸入->類名->SQL文件名->URL路徑，如：node _.js className className.sql className')
         return null
     }
 
@@ -106,46 +106,10 @@ function midStr(str, begin, end) {
     return str.substring(beginPos + begin.length, endPos);
 }
 
-
-var mysqltype2javatype = new Map();
-function generatorMySqlTyp2JavaTypeMap() {
-    if (mysqltype2javatype.length) return;
-
-    mysqltype2javatype['BIT(1)'] = 'Boolean'
-    mysqltype2javatype['BIT'] = 'byte[]'
-    mysqltype2javatype['TINYINT'] = 'Integer'
-    mysqltype2javatype['BOOL'] = 'Boolean'
-    mysqltype2javatype['SMALLINT'] = 'Integer'
-    mysqltype2javatype['MEDIUMINT'] = 'Integer'
-    mysqltype2javatype['INT'] = 'Integer'
-    mysqltype2javatype['FLOAT'] = 'Float'
-    mysqltype2javatype['DOUBLE'] = 'Double'
-    mysqltype2javatype['DECIMAL'] = 'Double'
-    mysqltype2javatype['DATETIME'] = 'Timestamp'
-    mysqltype2javatype['DATE'] = 'Date'
-    mysqltype2javatype['TIMESTAMP'] = 'Timestamp'
-    mysqltype2javatype['TIME'] = 'Time'
-    mysqltype2javatype['CHAR'] = 'String'
-    mysqltype2javatype['VARCHAR'] = 'String'
-    mysqltype2javatype['BINARY'] = 'byte[]'
-    mysqltype2javatype['VARBINARY'] = 'byte[]'
-    mysqltype2javatype['TINYBLOB'] = 'byte[]'
-    mysqltype2javatype['TINYTEXT'] = 'byte[]'
-    mysqltype2javatype['BLOB'] = 'byte[]'
-    mysqltype2javatype['TEXT'] = 'String'
-    mysqltype2javatype['MEDIUMBLOB'] = 'byte[]'
-    mysqltype2javatype['MEDIUMTEXT'] = 'String'
-    mysqltype2javatype['LONGBLOB'] = 'byte[]'
-    mysqltype2javatype['LONGTEXT'] = 'String'
-    mysqltype2javatype['ENUM'] = 'String'
-    mysqltype2javatype['SET'] = 'String'
-    mysqltype2javatype['xxxxxx'] = 'xxxxxx'
-}
-
 function sqlType2JavaType(type) {
-    for(var key in mysqltype2javatype){
+    for(var [key,value] of typeReflect){
         if (type.indexOf(key) === 0) {
-            return mysqltype2javatype[key];
+            return value;
         }
     }
 
@@ -159,7 +123,7 @@ function generateTableColumnInfo(line) {
 
     const type = sqlType2JavaType(typeStr.toUpperCase());
     if (!type) {
-        console.log('无法映射type: ' + typeStr, line);
+        console.log('無法映射type: ' + typeStr, line);
         return null;
     }
 
@@ -250,8 +214,6 @@ function analyzeSql(param) {
     const fullPath = path.join(process.cwd(), param.sqlPath);
     let sqlContent = fs.readFileSync(fullPath, 'utf-8');
     if (!sqlContent) return null;
-
-    generatorMySqlTyp2JavaTypeMap();
 
     sqlContent = sqlContent.replaceAll('\r\n', '\n');
     const lines = sqlContent.split('\n')
@@ -387,7 +349,7 @@ function go() {
     replaceClassName(base, param);
 
     if (save(param)) {
-        // 自动拷贝到IDEA
+        // 自動拷貝到IDEA目錄
         copy2dstDir(param);
 
         console.log('save success');

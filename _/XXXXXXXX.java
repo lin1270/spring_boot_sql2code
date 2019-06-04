@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
+import java.sql.Time;
 import java.sql.Timestamp;
 import javax.persistence.*;
 import java.util.Date;
