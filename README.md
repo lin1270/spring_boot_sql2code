@@ -10,7 +10,7 @@ spring boot框架，根據SQL創建語句，自動生成 model、mapper、contro
 ```
 node _.js className className.sql className
 ```
-可加入拷貝到工程文件下功能：  
+可加入拷貝到工程文件夹功能：  
 ```
 node _.js className className.sql className /c _cfg1.json  
 ```
