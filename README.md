@@ -55,6 +55,25 @@ node _.js className className.sql className /c _cfg1.json
 ```
   
   
+
+<br><br><br>
+修改忽略的數據庫KEY (_ignoreKey.json)：
+```json
+[
+    "TENANT_ID_",
+    "DELFLAG_",
+    "CREATED_BY_ID_",
+    "CREATED_BY_NAME_",
+    "CREATED_TIME_",
+    "MODIFIED_BY_ID_",
+    "MODIFIED_BY_NAME_",
+    "MODIFIED_TIME_",
+    "DISPLAY_ORDER_",
+    "VERSION_"
+]
+```
+
+
 <br><br><br>
   
 修改拷貝到工程路徑：

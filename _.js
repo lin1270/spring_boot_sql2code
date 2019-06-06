@@ -5,6 +5,7 @@ var process = require('process')
 const os = require('os');
 var exec = require('child_process').exec;
 var typeReflect = require('./_type.json')
+var ignoreKey = require('./_ignoreKey.json')
 
 const g_toReplace = 'XXXXXXXX'
 
@@ -210,6 +211,16 @@ function generateGetsetOfTableInfo(tableInfo) {
     return resultStr;
 }
 
+function isIgnoreKey(key) {
+    for(let item of ignoreKey) {
+        if (item === key) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 function analyzeSql(param) {
     const fullPath = path.join(process.cwd(), param.sqlPath);
     let sqlContent = fs.readFileSync(fullPath, 'utf-8');
@@ -229,7 +240,9 @@ function analyzeSql(param) {
         if (line.indexOf('`') === 0) {
             const column = generateTableColumnInfo(line);
             if (!column) return null;
-            tableInfo.columns.push(column);
+            if (!isIgnoreKey(column.name)) {
+                tableInfo.columns.push(column);
+            }
         }
         else if (line.indexOf('CREATE TABLE') === 0) {
             tableInfo.name = generateTableName(line);

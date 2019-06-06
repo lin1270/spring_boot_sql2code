@@ -133,46 +133,6 @@ public class TestAreaInfo extends BasePO {
 	@Column(name = "IMAGES_")
 	private String images;
 
-	@ApiModelProperty("租户")
-	@Column(name = "TENANT_ID_")
-	private String tenantId;
-
-	@ApiModelProperty("逻辑删除标记.0-否；1-是；")
-	@Column(name = "DELFLAG_")
-	private String delflag;
-
-	@ApiModelProperty("显示序号")
-	@Column(name = "DISPLAY_ORDER_")
-	private Integer displayOrder;
-
-	@ApiModelProperty("创建人ID")
-	@Column(name = "CREATED_BY_ID_")
-	private String createdById;
-
-	@ApiModelProperty("创建人名称")
-	@Column(name = "CREATED_BY_NAME_")
-	private String createdByName;
-
-	@ApiModelProperty("创建时间")
-	@Column(name = "CREATED_TIME_")
-	private Timestamp createdTime;
-
-	@ApiModelProperty("修改人ID")
-	@Column(name = "MODIFIED_BY_ID_")
-	private String modifiedById;
-
-	@ApiModelProperty("修改人名称")
-	@Column(name = "MODIFIED_BY_NAME_")
-	private String modifiedByName;
-
-	@ApiModelProperty("修改时间")
-	@Column(name = "MODIFIED_TIME_")
-	private Time modifiedTime;
-
-	@ApiModelProperty("版本")
-	@Column(name = "VERSION_")
-	private Integer version;
-
 
 	public String getId() {
 		return id;
@@ -404,86 +364,6 @@ public class TestAreaInfo extends BasePO {
 
 	public void setImages(String images) {
 		this.images = images;
-	}
-
-	public String getTenantId() {
-		return tenantId;
-	}
-
-	public void setTenantId(String tenantId) {
-		this.tenantId = tenantId;
-	}
-
-	public String getDelflag() {
-		return delflag;
-	}
-
-	public void setDelflag(String delflag) {
-		this.delflag = delflag;
-	}
-
-	public Integer getDisplayOrder() {
-		return displayOrder;
-	}
-
-	public void setDisplayOrder(Integer displayOrder) {
-		this.displayOrder = displayOrder;
-	}
-
-	public String getCreatedById() {
-		return createdById;
-	}
-
-	public void setCreatedById(String createdById) {
-		this.createdById = createdById;
-	}
-
-	public String getCreatedByName() {
-		return createdByName;
-	}
-
-	public void setCreatedByName(String createdByName) {
-		this.createdByName = createdByName;
-	}
-
-	public Timestamp getCreatedTime() {
-		return createdTime;
-	}
-
-	public void setCreatedTime(Timestamp createdTime) {
-		this.createdTime = createdTime;
-	}
-
-	public String getModifiedById() {
-		return modifiedById;
-	}
-
-	public void setModifiedById(String modifiedById) {
-		this.modifiedById = modifiedById;
-	}
-
-	public String getModifiedByName() {
-		return modifiedByName;
-	}
-
-	public void setModifiedByName(String modifiedByName) {
-		this.modifiedByName = modifiedByName;
-	}
-
-	public Time getModifiedTime() {
-		return modifiedTime;
-	}
-
-	public void setModifiedTime(Time modifiedTime) {
-		this.modifiedTime = modifiedTime;
-	}
-
-	public Integer getVersion() {
-		return version;
-	}
-
-	public void setVersion(Integer version) {
-		this.version = version;
 	}
 
 
