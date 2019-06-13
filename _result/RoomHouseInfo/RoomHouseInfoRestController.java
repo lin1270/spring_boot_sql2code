@@ -1,12 +1,12 @@
-package XXXXXXXX_PACKAGE.web.controller;
+package com.pactera.jep.service.base.web.controller;
 
 import com.pactera.jep.autoconfigure.web.controller.BaseRestController;
 import com.pactera.jep.orm.Filter;
 import com.pactera.jep.orm.Order;
 import com.pactera.jep.orm.Page;
 import com.pactera.jep.core.exception.ServiceException;
-import XXXXXXXX_PACKAGE.model.XXXXXXXX;
-import XXXXXXXX_PACKAGE.service.XXXXXXXXService;
+import com.pactera.jep.service.base.model.RoomHouseInfo;
+import com.pactera.jep.service.base.service.RoomHouseInfoService;
 import com.pactera.jep.web.code.WebCode;
 import com.pactera.jep.web.code.WebHeaderCode;
 import io.swagger.annotations.ApiOperation;
@@ -23,24 +23,24 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/XXXXXXXX_PATH")
-public class XXXXXXXXRestController extends BaseRestController<XXXXXXXX> {
-    private static Logger logger = LoggerFactory.getLogger(XXXXXXXXRestController.class);
+@RequestMapping("/roomHouseInfo")
+public class RoomHouseInfoRestController extends BaseRestController<RoomHouseInfo> {
+    private static Logger logger = LoggerFactory.getLogger(RoomHouseInfoRestController.class);
 
     @Autowired
-    private XXXXXXXXService service;
+    private RoomHouseInfoService service;
 
     /**
      * 为列表页面做数据准备
      */
     @Override
-    protected void prepareQuery(@ApiIgnore @RequestHeader(WebHeaderCode.X_USER_TOKEN) String token, Page<XXXXXXXX> page, List<Filter> filters, List<Order> orders, HttpServletRequest request) {
+    protected void prepareQuery(@ApiIgnore @RequestHeader(WebHeaderCode.X_USER_TOKEN) String token, Page<RoomHouseInfo> page, List<Filter> filters, List<Order> orders, HttpServletRequest request) {
         service.query(page, filters, orders);
     }
 
     @ApiOperation(value = "保存一条数据")
 	@PostMapping(value = "/save")
-	public Map<String, Object> save(@RequestBody XXXXXXXX saveInfo) {
+	public Map<String, Object> save(@RequestBody RoomHouseInfo saveInfo) {
 		Map<String, Object> tips = new HashMap<>();
 
 		try

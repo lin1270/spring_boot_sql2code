@@ -1,4 +1,4 @@
-package com.pactera.jep.service.base.model;
+package XXXXXXXX_PACKAGE.model;
 
 
 import com.pactera.jep.entity.BasePO;

@@ -1,8 +1,8 @@
-package com.pactera.jep.service.base.mapper;
+package XXXXXXXX_PACKAGE.mapper;
 
 import com.pactera.jep.orm.mybatis.annotation.MyBatisMapper;
 import com.pactera.jep.orm.mybatis.mapper.Mapper;
-import com.pactera.jep.service.base.model.XXXXXXXX;
+import XXXXXXXX_PACKAGE.model.XXXXXXXX;
 
 import java.util.List;
 

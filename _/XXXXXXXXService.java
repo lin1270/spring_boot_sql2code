@@ -1,7 +1,7 @@
-package com.pactera.jep.service.base.service;
+package XXXXXXXX_PACKAGE.service;
 
 import com.pactera.jep.orm.service.CRUDService;
-import com.pactera.jep.service.base.model.XXXXXXXX;
+import XXXXXXXX_PACKAGE.model.XXXXXXXX;
 
 import java.util.List;
 

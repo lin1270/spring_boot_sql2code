@@ -5,17 +5,18 @@ spring boot框架，根據SQL創建語句，自動生成 model、mapper、contro
 <br><br><br>
 
 # 使用說明:
-需要輸入->類名->SQL文件名->URL路徑，  
+需要輸入->SQL文件名->cfg，需要配置package，
 如：  
 ```
-node _.js className className.sql className
+node _.js className.sql _cfg1.json
 ```
-可加入拷貝到工程文件夹功能：  
+可加入拷貝到工程文件夹功能，需要在cfg.json中加入配置：  
 ```
-node _.js className className.sql className /c _cfg1.json  
+ {
+	"dir": "H:\\git\\project\\base"
+ }
 ```
-
-具体可參照內部的內容。   
+ 
   
   
   

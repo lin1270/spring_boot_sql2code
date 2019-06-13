@@ -8,43 +8,43 @@ var typeReflect = require('./_type.json')
 var ignoreKey = require('./_ignoreKey.json')
 
 const g_toReplace = 'XXXXXXXX'
+const g_packageToReplace = 'XXXXXXXX_PACKAGE'
 
 var result = {}
 
 function checkRunParam() {
-    if (process.argv.length < 5) {
-        console.error('需要輸入->類名->SQL文件名->URL路徑，如：node _.js className className.sql className')
+    if (process.argv.length < 4) {
+        console.error('需要輸入->SQL文件名->cfg，如：node _.js className.sql _cfg1.json')
         return null
     }
 
-    const className = process.argv[2]
-    const sqlPath = process.argv[3]
-    const urlPath = process.argv[4]
+    const sqlPath = process.argv[2]
 
-    if (!className || !sqlPath || !urlPath) {
-        console.error('需要輸入->類名->SQL文件名->URL路徑，如：node _.js className className.sql className')
+    if (!sqlPath) {
+        console.error('需要輸入->SQL文件名->cfg，如：node _.js className.sql _cfg1.json')
         return null
     }
 
     let dstDir = ''
-
-    if (process.argv.length >= 7) {
-        if (process.argv[5].toLowerCase() === '/c') {
-            const dstInfo = fs.readFileSync(path.join(process.cwd(), process.argv[6]), 'utf-8');
-            if (dstInfo) {
-                const dstJson = JSON.parse(dstInfo);
-                if (dstJson) {
-                    dstDir = dstJson.dir
-                }
-            }
+    let package = ''
+    const dstInfo = fs.readFileSync(path.join(process.cwd(), process.argv[3]), 'utf-8');
+    if (dstInfo) {
+        const dstJson = JSON.parse(dstInfo);
+        if (dstJson) {
+            dstDir = dstJson.dir
+            package = dstJson.package
         }
     }
 
+    if (!package) {
+        console.log('config must contain package...');
+        return null
+    }
+
     return {
-        className,
         sqlPath,
-        urlPath,
         dstDir,
+        package,
     }
 }
 
@@ -95,6 +95,16 @@ function replacePath(base, param) {
     result.controller = result.controller.replace(g_toReplace + '_PATH', param.urlPath);
 }
 
+function replacePackage(base,param) {
+    result = {
+        model: result.model.replaceAll(g_packageToReplace, param.package),
+        mapperJava: result.mapperJava.replaceAll(g_packageToReplace, param.package),
+        mapperXml: result.mapperXml.replaceAll(g_packageToReplace, param.package),
+        controller: result.controller.replaceAll(g_packageToReplace, param.package),
+        service: result.service.replaceAll(g_packageToReplace, param.package),
+        serviceImpl: result.serviceImpl.replaceAll(g_packageToReplace, param.package),
+    }
+}
 
 function midStr(str, begin, end) {
     if (!str) return;
@@ -264,6 +274,9 @@ function generatorModel(base, param) {
         console.log('analyze db error');
         return false;
     }
+
+    param.className = param.urlPath = firstUpperCase(getColumnSwitchName(sqlInfo.name));
+
     result.model = result.model.replace(g_toReplace + '_DB', sqlInfo.name);
 
     const properyInfo = generatePropertyOfTableInfo(sqlInfo);
@@ -358,6 +371,7 @@ function go() {
     
     if (!generatorModel(base, param)) return
 
+    replacePackage(base,param);
     replacePath(base, param);
     replaceClassName(base, param);
 
